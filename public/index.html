@@ -1068,7 +1068,10 @@
             const nombre = window.nombreUsuario || 'Usuario';
             const genero = window.sexoSeleccionado || 'masculino';
             const accesoriosText = (window.accesoriosGrinch && window.accesoriosGrinch.length > 0) ? window.accesoriosGrinch.join(', ') : 'ningún accesorio';
-            const promptGrinch = `Crea una figura de acción de cuerpo completo con la persona de la foto y que este vestido de GRINCH,  pero que su rostro se mantenga igual, en su caja original con ventana. La figura es como se muestra en la foto, ${genero}. \nLa caja es de color rojo con detalles navideños en dorado y lleva la inscripción ${nombre}. en la parte superior.\nIncluye, como únicos accesorios, ${accesoriosText} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo.\nDiseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña.`;
+            const promptGrinch = `Crea una figura de acción de cuerpo completo con la persona de la foto con un disfraz de Grinch pero sin máscara para que se pueda ver el rostro de la persona de la foto,
+             en su caja original con ventana. La figura es como se muestra en la foto, es ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color rojo con detalles navideños en dorado
+              para la caja. Incluye , como únicos accesorios,${accesoriosText} cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo.
+               Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
             const promptInput = document.getElementById('promptInput');
             if (promptInput) promptInput.value = promptGrinch;
         }
@@ -1507,7 +1510,7 @@
             const nombre = window.nombreUsuario || 'Usuario';
             const genero = window.sexoSeleccionado || 'masculino';
             const accesoriosText = (window.accesoriosGrinch && window.accesoriosGrinch.length > 0) ? window.accesoriosGrinch.join(', ') : 'ningún accesorio';
-            const promptGrinch = `Crea una figura de acción de cuerpo completo con la persona de la foto con estilo Grinch pero manteniendo el mismo rostro de la persona de la foto, en su caja original con ventana. La figura es como se muestra en la foto, es ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color rojo con detalles navideños en dorado para la caja. Incluye , como únicos accesorios, ${accesoriosText} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
+            const promptGrinch = `Crea una figura de acción de cuerpo completo con la persona de la foto con un disfraz de Grinch pero sin máscara para que se pueda ver el rostro de la persona de la foto, en su caja original con ventana. La figura es como se muestra en la foto, es ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color rojo con detalles navideños en dorado para la caja. Incluye , como únicos accesorios,${accesoriosText} cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
 
             
             const promptInput = document.getElementById('promptInput');
