@@ -15,7 +15,7 @@
         }
         /* Estilos para botón de cámara */
         .camera-btn {
-            background: linear-gradient(135deg, #e55319 0%, #e55319 100%);
+            background: linear-gradient(135deg, #ff462d 0%, #ff462d 100%);
             color: white;
             border: none;
             padding: 16px 32px;
@@ -801,9 +801,9 @@
         <!-- Sección para elegir tipo de foto -->
         <div class="tipo-foto-section" id="tipo-foto-section" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: rgba(255,255,255,0.97); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); min-width: 400px;">
             <h2 style="color: #666; font-size: 1.4rem; margin-bottom: 20px;">¿Qué tipo de foto quieres?</h2>
-            <button onclick="seleccionarTipoFoto('nuevo')" style="background: #e55319; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 20px 10px 0;">Año Nuevo</button>
-            <button onclick="seleccionarTipoFoto('navidad')" style="background: #397cf6; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px;">Navidad</button>
-            <button onclick="seleccionarTipoFoto('grinch')" style="background: #2ecc40; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px; font-weight:700;">Grinch</button>
+            <button onclick="seleccionarTipoFoto('nuevo')" style="background: #FF462D; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 20px 10px 0;">Año Nuevo</button>
+            <button onclick="seleccionarTipoFoto('navidad')" style="background: #3d3d3d; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px;">Navidad</button>
+            <button onclick="seleccionarTipoFoto('grinch')" style="background: #187e3f; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px; font-weight:700;">Grinch</button>
         </div>
           
         </div>
@@ -1186,8 +1186,14 @@
         }
         
         function continuarGenerador() {
+            // Ocultar todas las pantallas
             document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('customization-section').style.display = 'none';
+            document.getElementById('inicioContainer').style.display = 'none';
+            
+            // Mostrar solo el generador
             document.getElementById('generatorContainer').style.display = 'block';
+            
             // Construir el prompt con los valores seleccionados
             const nombre = window.nombreUsuario || 'Usuario';
             const genero = window.sexoSeleccionado || 'masculino';
@@ -1202,7 +1208,6 @@
             }
             const promptInput = document.getElementById('promptInput');
             promptInput.value = promptCompleto;
-            setTimeout(mostrarQRDescarga, 800); // Mostrar QR después de generar imagen
         }
         
         function continuarFoto() {

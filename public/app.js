@@ -23,18 +23,18 @@ let cameraStream = null;
 generateBtn.addEventListener('click', generateImage);
 downloadBtn.addEventListener('click', downloadImage);
 newBtn.addEventListener('click', resetForm);
-cameraBtn.addEventListener('click', async () => {
-    cameraModal.style.display = 'block';
-    try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        cameraVideo.srcObject = cameraStream;
-    } catch (err) {
-        alert('No se pudo acceder a la cámara.');
-        cameraModal.style.display = 'none';
-    }
-});
+
+// Mejorar el event listener de la cámara
+cameraBtn.addEventListener('click', openCamera);
 captureBtn.addEventListener('click', captureImage);
 closeCameraBtn.addEventListener('click', closeCamera);
+
+// Cerrar modal con ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cameraModal.style.display === 'block') {
+        closeCamera();
+    }
+});
 
 // Botones de ejemplo
 exampleBtns.forEach(btn => {
@@ -44,6 +44,16 @@ exampleBtns.forEach(btn => {
         promptInput.focus();
     });
 });
+
+// Quitar imagen capturada
+removeBtn.addEventListener('click', () => {
+    imagePreview.src = '';
+    previewContainer.style.display = 'none';
+    checkFormValid();
+});
+
+// Actualiza validación al escribir en el prompt
+promptInput.addEventListener('input', checkFormValid);
 
 // Funciones
 function dataURLtoFile(dataurl, filename) {
@@ -59,42 +69,88 @@ function dataURLtoFile(dataurl, filename) {
 }
 
 function checkFormValid() {
-    // Verifica si hay imagen en el preview y texto en el prompt
     const hasImage = imagePreview.src && imagePreview.src.startsWith('data:image');
     const hasPrompt = promptInput.value.trim().length > 0;
     generateBtn.disabled = !(hasImage && hasPrompt);
 }
 
-// Actualiza el preview y validación al capturar imagen
+// Abrir la cámara con mejor manejo de errores
+async function openCamera() {
+    try {
+        cameraModal.style.display = 'block';
+        
+        // Verificar si el navegador soporta getUserMedia
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            throw new Error('Tu navegador no soporta acceso a la cámara');
+        }
+
+        // Solicitar acceso a la cámara con configuración específica
+        const constraints = {
+            video: {
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                facingMode: 'user' // Cámara frontal por defecto
+            }
+        };
+
+        cameraStream = await navigator.mediaDevices.getUserMedia(constraints);
+        cameraVideo.srcObject = cameraStream;
+        
+        // Esperar a que el video esté listo
+        cameraVideo.onloadedmetadata = () => {
+            cameraVideo.play();
+        };
+        
+    } catch (err) {
+        console.error('Error al acceder a la cámara:', err);
+        let errorMessage = 'No se pudo acceder a la cámara.';
+        
+        if (err.name === 'NotAllowedError') {
+            errorMessage = 'Permiso denegado. Por favor permite el acceso a la cámara.';
+        } else if (err.name === 'NotFoundError') {
+            errorMessage = 'No se encontró ninguna cámara en tu dispositivo.';
+        } else if (err.name === 'NotReadableError') {
+            errorMessage = 'La cámara está siendo usada por otra aplicación.';
+        }
+        
+        showToast(errorMessage, 'error');
+        closeCamera();
+    }
+}
+
+// Capturar imagen con mejor calidad
 function captureImage() {
+    if (!cameraVideo.videoWidth || !cameraVideo.videoHeight) {
+        showToast('Espera a que la cámara esté lista', 'error');
+        return;
+    }
+
     const canvas = document.createElement('canvas');
     canvas.width = cameraVideo.videoWidth;
     canvas.height = cameraVideo.videoHeight;
+    
     const ctx = canvas.getContext('2d');
     ctx.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
-    const dataUrl = canvas.toDataURL('image/png');
+    
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9); // Mejor calidad
     imagePreview.src = dataUrl;
     previewContainer.style.display = 'block';
+    
+    closeCamera();
+    checkFormValid();
+    showToast('Foto capturada exitosamente', 'success');
+}
+
+// Cerrar modal de cámara
+function closeCamera() {
     cameraModal.style.display = 'none';
     if (cameraStream) {
         cameraStream.getTracks().forEach(track => track.stop());
         cameraStream = null;
     }
-    // Asegura que se valide el formulario después de capturar
-    checkFormValid();
 }
 
-// Quitar imagen capturada
-removeBtn.addEventListener('click', () => {
-    imagePreview.src = '';
-    previewContainer.style.display = 'none';
-    checkFormValid();
-});
-
-// Actualiza validación al escribir en el prompt
-promptInput.addEventListener('input', checkFormValid);
-
-// Generar imagen usando la imagen capturada (base64)
+// Generar imagen usando la imagen capturada
 async function generateImage() {
     if (!imagePreview.src || !imagePreview.src.startsWith('data:image')) {
         showToast('La imagen es requerida', 'error');
@@ -111,8 +167,7 @@ async function generateImage() {
 
     try {
         const formData = new FormData();
-        // Convierte el base64 a archivo antes de enviar
-        const file = dataURLtoFile(imagePreview.src, 'captured.png');
+        const file = dataURLtoFile(imagePreview.src, 'captured.jpg');
         formData.append('image', file);
         formData.append('prompt', promptInput.value.trim());
 
@@ -132,7 +187,6 @@ async function generateImage() {
         resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         showToast('¡Imagen generada exitosamente! 🎉', 'success');
         
-        // Generar QR para descarga
         generateQRCode(data.image);
     } catch (error) {
         console.error('Error:', error);
@@ -170,7 +224,6 @@ function resetForm() {
     resultSection.style.display = 'none';
     generateBtn.disabled = true;
     
-    // Scroll al inicio
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -182,27 +235,6 @@ function showToast(message, type = 'success') {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 3000);
-}
-
-// Abrir la cámara
-async function openCamera() {
-    cameraModal.style.display = 'block';
-    try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        cameraVideo.srcObject = cameraStream;
-    } catch (err) {
-        alert('No se pudo acceder a la cámara.');
-        cameraModal.style.display = 'none';
-    }
-}
-
-// Cerrar modal de cámara
-function closeCamera() {
-    cameraModal.style.display = 'none';
-    if (cameraStream) {
-        cameraStream.getTracks().forEach(track => track.stop());
-        cameraStream = null;
-    }
 }
 
 // Verificar salud de la API al cargar
@@ -221,22 +253,17 @@ async function checkApiHealth() {
 
 // Función para seleccionar color de piel
 function selectSkin(tonoPiel) {
-    // Remover selección anterior
     document.querySelectorAll('.skin-option').forEach(option => {
         option.style.border = '2px solid #e9ecef';
     });
     
-    // Marcar opción seleccionada - buscar por el onclick que contiene el tono
     document.querySelectorAll('.skin-option').forEach(option => {
         if (option.getAttribute('onclick').includes(tonoPiel)) {
             option.style.border = '2px solid #434444ff';
         }
     });
     
-    // Guardar selección
     window.tonoSeleccionado = tonoPiel;
-    
-    // Mostrar botón continuar
     document.getElementById('continue-photo-button').style.display = 'block';
 }
 
@@ -244,15 +271,15 @@ function selectSkin(tonoPiel) {
 function abrirCamara() {
     document.getElementById('skinSelectionContainer').style.display = 'none';
     document.getElementById('generatorContainer').style.display = 'block';
-    // Abrir modal de cámara automáticamente
     setTimeout(() => {
-        document.getElementById('cameraBtn').click();
+        openCamera();
     }, 100);
 }
 
 // Función para continuar a la sección de foto después de seleccionar color de piel
 function continuarFoto() {
     document.getElementById('skinSelectionContainer').style.display = 'none';
+    document.getElementById('customization-section').style.display = 'none';
     document.getElementById('generatorContainer').style.display = 'block';
 }
 
@@ -263,7 +290,6 @@ function generateQRCode(imageUrl) {
     
     qrContainer.innerHTML = '';
     
-    // Crear título
     const title = document.createElement('h3');
     title.textContent = 'Escanea para descargar';
     title.style.color = '#666';
@@ -271,7 +297,6 @@ function generateQRCode(imageUrl) {
     title.style.marginBottom = '10px';
     qrContainer.appendChild(title);
     
-    // Generar QR con QRious
     const canvas = document.createElement('canvas');
     const qr = new QRious({
         element: canvas,
@@ -284,6 +309,72 @@ function generateQRCode(imageUrl) {
     canvas.style.borderRadius = '10px';
     qrContainer.appendChild(canvas);
 }
+
+// Función para volver al inicio al hacer clic en el logo
+function volverAlInicio() {
+    // Ocultar todas las secciones
+    document.getElementById('generatorContainer').style.display = 'none';
+    document.getElementById('mainContainer').style.display = 'none';
+    document.getElementById('resultSection').style.display = 'none';
+    
+    // Limpiar selecciones
+    document.getElementById('avatar-masculino').classList.remove('selected');
+    document.getElementById('avatar-femenino').classList.remove('selected');
+    document.getElementById('avatar-neutro').classList.remove('selected');
+    document.getElementById('img-masculino').src = 'img/Hombre.jpg';
+    document.getElementById('img-femenino').src = 'img/Mujer.jpg';
+    document.getElementById('img-neutro').src = 'img/Neutro.jpg';
+    document.getElementById('next-button').style.display = 'none';
+    
+    // Limpiar campos
+    document.getElementById('user-name').value = '';
+    
+    // Limpiar selecciones de accesorios
+    document.querySelectorAll('.accessory-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    // Reiniciar contador
+    const contador = document.getElementById('contador-accesorios');
+    if (contador) {
+        contador.textContent = '0';
+    }
+    
+    // Ocultar botones de continuar
+    document.getElementById('continue-photo-button').style.display = 'none';
+    
+    // Resetear secciones
+    document.getElementById('name-first-section').style.display = 'none';
+    document.getElementById('customization-section').style.display = 'none';
+    document.getElementById('avatar-section').style.display = 'none';
+    
+    // Limpiar variables globales
+    window.sexoSeleccionado = null;
+    window.nombreUsuario = null;
+    window.accesoriosSeleccionados = [];
+    
+    // Resetear términos
+    const termsCheckbox = document.getElementById('termsCheckbox');
+    const btnTermsNext = document.getElementById('btn-terms-next');
+    if (termsCheckbox) termsCheckbox.checked = false;
+    if (btnTermsNext) btnTermsNext.disabled = true;
+    
+    // Mostrar pantalla inicial
+    document.getElementById('terms-section').style.display = 'block';
+    document.getElementById('inicioContainer').style.display = 'flex';
+    
+    // Scroll al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Agregar event listener al logo cuando se carga la página
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo-corner img');
+    if (logo) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', volverAlInicio);
+    }
+});
 
 // Ejecutar al cargar la página
 checkApiHealth();
