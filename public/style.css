@@ -41,6 +41,10 @@ body {
     line-height: 1.6;
     position: relative;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 body::before {
@@ -113,6 +117,7 @@ body::before {
 
 /* Upload Area */
 .upload-area {
+    padding-top:  888px;
     position: relative;
     border: 3px dashed var(--border);
     border-radius: 1rem;
@@ -125,6 +130,9 @@ body::before {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 300px;
+    margin: 0 auto;
+    
 }
 
 .upload-area:hover {
@@ -407,6 +415,7 @@ body::before {
 }
 
 /* Camera Modal */
+
 .camera-modal {
     position: fixed;
     top: 0;
@@ -418,6 +427,8 @@ body::before {
     align-items: center;
     justify-content: center;
     z-index: 9999;
+    /* Centrado absoluto para fallback */
+    text-align: center;
 }
 
 .camera-content {
@@ -429,11 +440,17 @@ body::before {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
+    max-width: 95vw;
+    max-height: 95vh;
+    box-sizing: border-box;
 }
 
 #cameraVideo {
-    width: 320px;
-    height: 240px;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    aspect-ratio: 4/3;
     background: #222;
     border-radius: 8px;
     margin-bottom: 16px;
