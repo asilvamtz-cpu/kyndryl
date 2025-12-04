@@ -22,7 +22,7 @@ let cameraStream = null;
 // Event Listeners
 generateBtn.addEventListener('click', generateImage);
 downloadBtn.addEventListener('click', downloadImage);
-newBtn.addEventListener('click', resetForm);
+newBtn.addEventListener('click', reiniciarProceso);
 
 // Mejorar el event listener de la cámara
 cameraBtn.addEventListener('click', openCamera);
@@ -227,6 +227,66 @@ function resetForm() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// Función para reiniciar completamente el proceso
+function reiniciarProceso() {
+    // Ocultar todas las secciones
+    document.getElementById('generatorContainer').style.display = 'none';
+    document.getElementById('mainContainer').style.display = 'none';
+    document.getElementById('resultSection').style.display = 'none';
+    
+    // Limpiar selecciones de avatares
+    document.getElementById('avatar-masculino').classList.remove('selected');
+    document.getElementById('avatar-femenino').classList.remove('selected');
+    document.getElementById('avatar-neutro').classList.remove('selected');
+    document.getElementById('img-masculino').src = 'img/Hombre.jpg';
+    document.getElementById('img-femenino').src = 'img/Mujer.jpg';
+    document.getElementById('img-neutro').src = 'img/Neutro.jpg';
+    document.getElementById('next-button').style.display = 'none';
+    
+    // Limpiar campos
+    document.getElementById('user-name').value = '';
+    
+    // Limpiar selecciones de accesorios
+    document.querySelectorAll('.accessory-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    // Reiniciar contador
+    const contador = document.getElementById('contador-accesorios');
+    if (contador) {
+        contador.textContent = '0';
+    }
+    
+    // Ocultar botones de continuar
+    document.getElementById('continue-photo-button').style.display = 'none';
+    
+    // Resetear secciones
+    document.getElementById('name-first-section').style.display = 'none';
+    document.getElementById('customization-section').style.display = 'none';
+    document.getElementById('avatar-section').style.display = 'none';
+    
+    // Limpiar variables globales
+    window.sexoSeleccionado = null;
+    window.nombreUsuario = null;
+    window.accesoriosSeleccionados = [];
+    
+    // Resetear términos
+    const termsCheckbox = document.getElementById('termsCheckbox');
+    const btnTermsNext = document.getElementById('btn-terms-next');
+    if (termsCheckbox) termsCheckbox.checked = false;
+    if (btnTermsNext) btnTermsNext.disabled = true;
+    
+    // Resetear formulario de imagen
+    resetForm();
+    
+    // Mostrar pantalla inicial
+    document.getElementById('terms-section').style.display = 'block';
+    document.getElementById('inicioContainer').style.display = 'flex';
+    
+    // Scroll al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function showToast(message, type = 'success') {
     toast.textContent = message;
     toast.className = `toast ${type}`;
@@ -297,17 +357,25 @@ function generateQRCode(imageUrl) {
     title.style.marginBottom = '10px';
     qrContainer.appendChild(title);
     
-    const canvas = document.createElement('canvas');
-    const qr = new QRious({
-        element: canvas,
-        value: imageUrl,
-        size: 150,
-        margin: 2
-    });
-    
-    canvas.style.border = '2px solid #ddd';
-    canvas.style.borderRadius = '10px';
-    qrContainer.appendChild(canvas);
+    try {
+        const canvas = document.createElement('canvas');
+        const qr = new QRious({
+            element: canvas,
+            value: imageUrl,
+            size: 150,
+            margin: 2
+        });
+        canvas.style.border = '2px solid #ddd';
+        canvas.style.borderRadius = '10px';
+        qrContainer.appendChild(canvas);
+    } catch (error) {
+        console.log('Error generando QR:', error);
+        const message = document.createElement('p');
+        message.textContent = 'Usa el botón Descargar para guardar tu imagen';
+        message.style.color = '#666';
+        message.style.fontSize = '0.9rem';
+        qrContainer.appendChild(message);
+    }
 }
 
 // Función para volver al inicio al hacer clic en el logo
