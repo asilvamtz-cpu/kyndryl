@@ -1065,20 +1065,170 @@
     <script src="app.js"></script>
     <script>
         // Modal de términos y condiciones (solo se abre bajo demanda)
-        const termsModal = document.getElementById('termsModal');
-        const openTermsModal = document.getElementById('openTermsModal');
-        const closeTermsModal = document.getElementById('closeTermsModal');
-        if (openTermsModal && termsModal && closeTermsModal) {
-            openTermsModal.addEventListener('click', function(e) {
-                e.preventDefault();
-                termsModal.style.display = 'flex';
+        document.addEventListener('DOMContentLoaded', function() {
+            const termsModal = document.getElementById('termsModal');
+            const openTermsModal = document.getElementById('openTermsModal');
+            const closeTermsModal = document.getElementById('closeTermsModal');
+            if (openTermsModal && termsModal && closeTermsModal) {
+                openTermsModal.onclick = function(e) {
+                    e.preventDefault();
+                    termsModal.style.display = 'flex';
+                };
+                closeTermsModal.onclick = function() {
+                    termsModal.style.display = 'none';
+                };
+            }
+
+            // Botón "Continuar" en términos
+            const btnTermsNext = document.getElementById('btn-terms-next');
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            if (btnTermsNext && termsCheckbox) {
+                btnTermsNext.disabled = !termsCheckbox.checked;
+                termsCheckbox.onchange = function() {
+                    btnTermsNext.disabled = !termsCheckbox.checked;
+                };
+                btnTermsNext.onclick = function() {
+                    if (termsCheckbox.checked) {
+                        document.getElementById('terms-section').style.display = 'none';
+                        document.getElementById('name-first-section').style.display = 'block';
+                    }
+                };
+            }
+
+            // Botón "Continuar" en nombre
+            const btnNameNext = document.getElementById('btn-name-next');
+            if (btnNameNext) {
+                btnNameNext.onclick = function() {
+                    var nombre = document.getElementById('user-name').value.trim();
+                    if (!nombre) {
+                        alert('Por favor, ingresa tu nombre');
+                        return;
+                    }
+                    window.nombreUsuario = nombre;
+                    document.getElementById('name-first-section').style.display = 'none';
+                    document.getElementById('avatar-section').style.display = 'flex';
+                    document.getElementById('avatar-masculino').classList.remove('selected');
+                    document.getElementById('avatar-femenino').classList.remove('selected');
+                    document.getElementById('avatar-neutro').classList.remove('selected');
+                    document.getElementById('img-masculino').src = 'img/Hombre.jpg';
+                    document.getElementById('img-femenino').src = 'img/Mujer.jpg';
+                    document.getElementById('img-neutro').src = 'img/Neutro.jpg';
+                    document.getElementById('next-button').style.display = 'none';
+                };
+            }
+
+            // Botón "Continuar" en género/avatar
+            const nextButton = document.getElementById('next-button');
+            if (nextButton) {
+                nextButton.querySelector('button').onclick = function() {
+                    document.getElementById('inicioContainer').style.display = 'none';
+                    document.getElementById('mainContainer').style.display = 'block';
+                    document.getElementById('tipo-foto-section').style.display = 'block';
+                };
+            }
+
+            // Botones de tipo de foto
+            document.querySelectorAll('#tipo-foto-section button').forEach(function(btn) {
+                btn.onclick = function() {
+                    var tipo = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    document.getElementById('tipo-foto-section').style.display = 'none';
+                    if (tipo === 'nuevo') {
+                        document.getElementById('customization-section').style.display = 'block';
+                    } else if (tipo === 'navidad') {
+                        mostrarRegalosNavidad();
+                    } else if (tipo === 'grinch') {
+                        mostrarAccesoriosGrinch();
+                    }
+                };
             });
-            closeTermsModal.addEventListener('click', function() {
-                termsModal.style.display = 'none';
-            });
-        }
-    </script>
-    <script>
+
+            // Botón "Usar cámara"
+            var cameraBtn = document.getElementById('cameraBtn');
+            var cameraModal = document.getElementById('cameraModal');
+            var cameraVideo = document.getElementById('cameraVideo');
+            var captureBtn = document.getElementById('captureBtn');
+            var closeCameraBtn = document.getElementById('closeCameraBtn');
+            var previewContainer = document.getElementById('previewContainer');
+            var imagePreview = document.getElementById('imagePreview');
+            var removeBtn = document.getElementById('removeBtn');
+            var stream = null;
+
+            if (cameraBtn) {
+                cameraBtn.onclick = function() {
+                    cameraModal.style.display = 'flex';
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function(s) {
+                            stream = s;
+                            cameraVideo.srcObject = stream;
+                            cameraVideo.play();
+                        })
+                        .catch(function(err) {
+                            alert('No se pudo acceder a la cámara: ' + err.message);
+                            cameraModal.style.display = 'none';
+                        });
+                };
+            }
+
+            if (closeCameraBtn) {
+                closeCameraBtn.onclick = function() {
+                    cameraModal.style.display = 'none';
+                    if (stream) {
+                        stream.getTracks().forEach(function(track) { track.stop(); });
+                        cameraVideo.srcObject = null;
+                    }
+                };
+            }
+
+            if (captureBtn) {
+                captureBtn.onclick = function() {
+                    var canvas = document.createElement('canvas');
+                    canvas.width = cameraVideo.videoWidth;
+                    canvas.height = cameraVideo.videoHeight;
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
+                    var dataUrl = canvas.toDataURL('image/png');
+                    imagePreview.src = dataUrl;
+                    previewContainer.style.display = 'block';
+                    cameraModal.style.display = 'none';
+                    if (stream) {
+                        stream.getTracks().forEach(function(track) { track.stop(); });
+                        cameraVideo.srcObject = null;
+                    }
+                };
+            }
+
+            if (removeBtn) {
+                removeBtn.onclick = function() {
+                    previewContainer.style.display = 'none';
+                    imagePreview.src = '';
+                };
+            }
+
+            // Botón "Descargar imagen"
+            var downloadBtn = document.getElementById('downloadBtn');
+            if (downloadBtn) {
+                downloadBtn.onclick = function() {
+                    var img = document.getElementById('resultImage');
+                    if (img && img.src) {
+                        var link = document.createElement('a');
+                        link.href = img.src;
+                        link.download = img.src.split('/').pop();
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                };
+            }
+
+            // Botón "Crear otra"
+            var newBtn = document.getElementById('newBtn');
+            if (newBtn) {
+                newBtn.onclick = function() {
+                    window.location.reload();
+                };
+            }
+        });
+
         function changeAvatarImage(genero, isHover) {
             const imgElement = document.getElementById('img-' + genero);
             const isSelected = document.getElementById('avatar-' + genero).classList.contains('selected');
@@ -1297,8 +1447,71 @@
                 document.body.removeChild(link);
             };
         }
-    </script>
-    <script>
+
+        // Inicialización de la cámara
+    document.addEventListener('DOMContentLoaded', function() {
+        var cameraBtn = document.getElementById('cameraBtn');
+        var cameraModal = document.getElementById('cameraModal');
+        var cameraVideo = document.getElementById('cameraVideo');
+        var captureBtn = document.getElementById('captureBtn');
+        var closeCameraBtn = document.getElementById('closeCameraBtn');
+        var previewContainer = document.getElementById('previewContainer');
+        var imagePreview = document.getElementById('imagePreview');
+        var removeBtn = document.getElementById('removeBtn');
+        var stream = null;
+
+        if (cameraBtn) {
+            cameraBtn.onclick = function() {
+                cameraModal.style.display = 'flex';
+                // Solicitar acceso a la cámara
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(s) {
+                        stream = s;
+                        cameraVideo.srcObject = stream;
+                        cameraVideo.play();
+                    })
+                    .catch(function(err) {
+                        alert('No se pudo acceder a la cámara: ' + err.message);
+                        cameraModal.style.display = 'none';
+                    });
+            };
+        }
+
+        if (closeCameraBtn) {
+            closeCameraBtn.onclick = function() {
+                cameraModal.style.display = 'none';
+                if (stream) {
+                    stream.getTracks().forEach(function(track) { track.stop(); });
+                    cameraVideo.srcObject = null;
+                }
+            };
+        }
+
+        if (captureBtn) {
+            captureBtn.onclick = function() {
+                var canvas = document.createElement('canvas');
+                canvas.width = cameraVideo.videoWidth;
+                canvas.height = cameraVideo.videoHeight;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
+                var dataUrl = canvas.toDataURL('image/png');
+                imagePreview.src = dataUrl;
+                previewContainer.style.display = 'block';
+                cameraModal.style.display = 'none';
+                if (stream) {
+                    stream.getTracks().forEach(function(track) { track.stop(); });
+                    cameraVideo.srcObject = null;
+                }
+            };
+        }
+
+        if (removeBtn) {
+            removeBtn.onclick = function() {
+                previewContainer.style.display = 'none';
+                imagePreview.src = '';
+            };
+        }
+    });
     // Bloquear el clic derecho en toda la página
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
