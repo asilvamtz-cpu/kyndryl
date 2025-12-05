@@ -8,9 +8,6 @@ package-lock.json
 # Uploads
 uploads/
 
-# Generated images
-generated/
-
 # Logs
 *.log
 npm-debug.log*

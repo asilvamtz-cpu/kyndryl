@@ -15,7 +15,7 @@
         }
         /* Estilos para botón de cámara */
         .camera-btn {
-            background: linear-gradient(135deg, #ff462d 0%, #ff462d 100%);
+            background: linear-gradient(135deg, #e55319 0%, #e55319 100%);
             color: white;
             border: none;
             padding: 16px 32px;
@@ -289,132 +289,9 @@
             color: white !important;
         }
         .accessory-option.selected {
-            background: linear-gradient(135deg, #ff462d 0%, #e55319 100%) !important;
+            background: #434444ff !important;
             color: white !important;
-            border-color: #ff462d !important;
-            transform: translateY(-3px) !important;
-            box-shadow: 0 10px 25px rgba(255, 70, 45, 0.3) !important;
-        }
-        
-        /* Estilos para el contenedor del QR */
-        #qr-container {
-            background: rgba(248, 249, 250, 0.8);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px solid #e9ecef;
-        }
-        
-        #qr-container h3 {
-            margin: 0 0 12px 0;
-            color: #434444;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        
-        #qr-container p {
-            margin: 8px 0 0 0;
-            color: #666;
-            font-size: 0.85rem;
-        }
-        
-        /* Estilos para deseos de año nuevo */
-        .wishes-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px auto;
-            max-width: 600px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .wishes-title {
-            color: #434444;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .wishes-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 25px 0;
-        }
-        
-        .wish-item {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #dee2e6;
-            border-radius: 15px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .wish-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border-color: #ff462d;
-        }
-        
-        .wish-item.selected {
-            background: linear-gradient(135deg, #ff462d 0%, #e55319 100%);
-            color: white;
-            border-color: #ff462d;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 70, 45, 0.3);
-        }
-        
-        .wish-emoji {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-        
-        .wish-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0;
-        }
-        
-        .wishes-counter {
-            background: #434444;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            margin: 20px 0;
-            display: inline-block;
-        }
-        
-        @media (max-width: 768px) {
-            .wishes-section {
-                margin: 20px 10px;
-                padding: 20px;
-            }
-            
-            .wishes-title {
-                font-size: 1.5rem;
-            }
-            
-            .wish-item {
-                padding: 15px;
-            }
-            
-            #qr-container {
-                padding: 15px;
-                margin: 15px 0;
-            }
-            
-            #qr-container h3 {
-                font-size: 1rem;
-            }
+            border-color: #434444ff !important;
         }
 
         /* Media Queries para Responsividad */
@@ -924,9 +801,9 @@
         <!-- Sección para elegir tipo de foto -->
         <div class="tipo-foto-section" id="tipo-foto-section" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: rgba(255,255,255,0.97); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); min-width: 400px;">
             <h2 style="color: #666; font-size: 1.4rem; margin-bottom: 20px;">¿Qué tipo de foto quieres?</h2>
-            <button onclick="seleccionarTipoFoto('nuevo')" style="background: #FF462D; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 20px 10px 0;">Año Nuevo</button>
-            <button onclick="seleccionarTipoFoto('navidad')" style="background: #3d3d3d; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px;">Navidad</button>
-            <button onclick="seleccionarTipoFoto('grinch')" style="background: #187e3f; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px; font-weight:700;">Grinch</button>
+            <button onclick="seleccionarTipoFoto('nuevo')" style="background: #e55319; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 20px 10px 0;">Año Nuevo</button>
+            <button onclick="seleccionarTipoFoto('navidad')" style="background: #397cf6; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px;">Navidad</button>
+            <button onclick="seleccionarTipoFoto('grinch')" style="background: #2ecc40; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px 0 10px 20px; font-weight:700;">Grinch</button>
         </div>
           
         </div>
@@ -1063,172 +940,22 @@
 </div>
 
     <script src="app.js"></script>
-    <script>
-        // Modal de términos y condiciones (solo se abre bajo demanda)
-        document.addEventListener('DOMContentLoaded', function() {
+        <script>
+            // Modal de términos y condiciones (solo se abre bajo demanda)
             const termsModal = document.getElementById('termsModal');
             const openTermsModal = document.getElementById('openTermsModal');
             const closeTermsModal = document.getElementById('closeTermsModal');
             if (openTermsModal && termsModal && closeTermsModal) {
-                openTermsModal.onclick = function(e) {
+                openTermsModal.addEventListener('click', function(e) {
                     e.preventDefault();
                     termsModal.style.display = 'flex';
-                };
-                closeTermsModal.onclick = function() {
+                });
+                closeTermsModal.addEventListener('click', function() {
                     termsModal.style.display = 'none';
-                };
+                });
             }
-
-            // Botón "Continuar" en términos
-            const btnTermsNext = document.getElementById('btn-terms-next');
-            const termsCheckbox = document.getElementById('termsCheckbox');
-            if (btnTermsNext && termsCheckbox) {
-                btnTermsNext.disabled = !termsCheckbox.checked;
-                termsCheckbox.onchange = function() {
-                    btnTermsNext.disabled = !termsCheckbox.checked;
-                };
-                btnTermsNext.onclick = function() {
-                    if (termsCheckbox.checked) {
-                        document.getElementById('terms-section').style.display = 'none';
-                        document.getElementById('name-first-section').style.display = 'block';
-                    }
-                };
-            }
-
-            // Botón "Continuar" en nombre
-            const btnNameNext = document.getElementById('btn-name-next');
-            if (btnNameNext) {
-                btnNameNext.onclick = function() {
-                    var nombre = document.getElementById('user-name').value.trim();
-                    if (!nombre) {
-                        alert('Por favor, ingresa tu nombre');
-                        return;
-                    }
-                    window.nombreUsuario = nombre;
-                    document.getElementById('name-first-section').style.display = 'none';
-                    document.getElementById('avatar-section').style.display = 'flex';
-                    document.getElementById('avatar-masculino').classList.remove('selected');
-                    document.getElementById('avatar-femenino').classList.remove('selected');
-                    document.getElementById('avatar-neutro').classList.remove('selected');
-                    document.getElementById('img-masculino').src = 'img/Hombre.jpg';
-                    document.getElementById('img-femenino').src = 'img/Mujer.jpg';
-                    document.getElementById('img-neutro').src = 'img/Neutro.jpg';
-                    document.getElementById('next-button').style.display = 'none';
-                };
-            }
-
-            // Botón "Continuar" en género/avatar
-            const nextButton = document.getElementById('next-button');
-            if (nextButton) {
-                nextButton.querySelector('button').onclick = function() {
-                    document.getElementById('inicioContainer').style.display = 'none';
-                    document.getElementById('mainContainer').style.display = 'block';
-                    document.getElementById('tipo-foto-section').style.display = 'block';
-                };
-            }
-
-            // Botones de tipo de foto
-            document.querySelectorAll('#tipo-foto-section button').forEach(function(btn) {
-                btn.onclick = function() {
-                    var tipo = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-                    document.getElementById('tipo-foto-section').style.display = 'none';
-                    if (tipo === 'nuevo') {
-                        document.getElementById('customization-section').style.display = 'block';
-                    } else if (tipo === 'navidad') {
-                        mostrarRegalosNavidad();
-                    } else if (tipo === 'grinch') {
-                        mostrarAccesoriosGrinch();
-                    }
-                };
-            });
-
-            // Botón "Usar cámara"
-            var cameraBtn = document.getElementById('cameraBtn');
-            var cameraModal = document.getElementById('cameraModal');
-            var cameraVideo = document.getElementById('cameraVideo');
-            var captureBtn = document.getElementById('captureBtn');
-            var closeCameraBtn = document.getElementById('closeCameraBtn');
-            var previewContainer = document.getElementById('previewContainer');
-            var imagePreview = document.getElementById('imagePreview');
-            var removeBtn = document.getElementById('removeBtn');
-            var stream = null;
-
-            if (cameraBtn) {
-                cameraBtn.onclick = function() {
-                    cameraModal.style.display = 'flex';
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(function(s) {
-                            stream = s;
-                            cameraVideo.srcObject = stream;
-                            cameraVideo.play();
-                        })
-                        .catch(function(err) {
-                            alert('No se pudo acceder a la cámara: ' + err.message);
-                            cameraModal.style.display = 'none';
-                        });
-                };
-            }
-
-            if (closeCameraBtn) {
-                closeCameraBtn.onclick = function() {
-                    cameraModal.style.display = 'none';
-                    if (stream) {
-                        stream.getTracks().forEach(function(track) { track.stop(); });
-                        cameraVideo.srcObject = null;
-                    }
-                };
-            }
-
-            if (captureBtn) {
-                captureBtn.onclick = function() {
-                    var canvas = document.createElement('canvas');
-                    canvas.width = cameraVideo.videoWidth;
-                    canvas.height = cameraVideo.videoHeight;
-                    var ctx = canvas.getContext('2d');
-                    ctx.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
-                    var dataUrl = canvas.toDataURL('image/png');
-                    imagePreview.src = dataUrl;
-                    previewContainer.style.display = 'block';
-                    cameraModal.style.display = 'none';
-                    if (stream) {
-                        stream.getTracks().forEach(function(track) { track.stop(); });
-                        cameraVideo.srcObject = null;
-                    }
-                };
-            }
-
-            if (removeBtn) {
-                removeBtn.onclick = function() {
-                    previewContainer.style.display = 'none';
-                    imagePreview.src = '';
-                };
-            }
-
-            // Botón "Descargar imagen"
-            var downloadBtn = document.getElementById('downloadBtn');
-            if (downloadBtn) {
-                downloadBtn.onclick = function() {
-                    var img = document.getElementById('resultImage');
-                    if (img && img.src) {
-                        var link = document.createElement('a');
-                        link.href = img.src;
-                        link.download = img.src.split('/').pop();
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                    }
-                };
-            }
-
-            // Botón "Crear otra"
-            var newBtn = document.getElementById('newBtn');
-            if (newBtn) {
-                newBtn.onclick = function() {
-                    window.location.reload();
-                };
-            }
-        });
-
+        </script>
+    <script>
         function changeAvatarImage(genero, isHover) {
             const imgElement = document.getElementById('img-' + genero);
             const isSelected = document.getElementById('avatar-' + genero).classList.contains('selected');
@@ -1246,9 +973,451 @@
             document.getElementById('avatar-masculino').classList.remove('selected');
             document.getElementById('avatar-femenino').classList.remove('selected');
             document.getElementById('avatar-neutro').classList.remove('selected');
+            // Restablecer imágenes a estado normal
+            document.getElementById('img-masculino').src = 'img/Hombre.jpg';
+            document.getElementById('img-femenino').src = 'img/Mujer.jpg';
+            document.getElementById('img-neutro').src = 'img/Neutro.jpg';
             // Marcar nuevo avatar seleccionado y cambiar su imagen
             document.getElementById('avatar-' + genero).classList.add('selected');
-            changeAvatarImage(genero, true); // fuerza imagen hover/seleccionada
+            changeAvatarImage(genero, false);
+            window.sexoSeleccionado = genero;
+            document.getElementById('next-button').style.display = 'block';
+        }
+        
+
+        
+        function continuar() {
+            document.getElementById('inicioContainer').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'block';
+            document.getElementById('tipo-foto-section').style.display = 'block';
+        }
+        
+        function mostrarTipoFoto() {
+            // El nombre ya fue capturado en el flujo inicial, no necesitamos validarlo de nuevo
+            document.getElementById('tipo-foto-section').style.display = 'block';
+        }
+
+        function seleccionarTipoFoto(tipo) {
+            document.getElementById('tipo-foto-section').style.display = 'none';
+            if (tipo === 'nuevo') {
+                document.getElementById('customization-section').style.display = 'block';
+            } else if (tipo === 'navidad') {
+                mostrarRegalosNavidad();
+            } else if (tipo === 'grinch') {
+                mostrarAccesoriosGrinch();
+            }
+        }
+
+        // Modal para accesorios de Grinch
+        function mostrarAccesoriosGrinch() {
+            if (!document.getElementById('grinch-section')) {
+                var overlay = document.createElement('div');
+                overlay.id = 'grinch-overlay';
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100vw';
+                overlay.style.height = '100vh';
+                overlay.style.display = 'flex';
+                overlay.style.alignItems = 'center';
+                overlay.style.justifyContent = 'center';
+                overlay.style.background = 'rgba(0,0,0,0.01)';
+                overlay.style.zIndex = '9999';
+
+                var grinchDiv = document.createElement('div');
+                grinchDiv.id = 'grinch-section';
+                grinchDiv.className = 'customization-section';
+                grinchDiv.style.display = 'block';
+                grinchDiv.style.position = 'relative';
+                grinchDiv.style.textAlign = 'center';
+                grinchDiv.style.background = 'rgba(255,255,255,0.97)';
+                grinchDiv.style.padding = '40px';
+                grinchDiv.style.borderRadius = '20px';
+                grinchDiv.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                grinchDiv.style.minWidth = '320px';
+                grinchDiv.innerHTML = `
+                    <h2 style=\"color: #666; font-size: 1.4rem; margin-bottom: 20px;\">¿Qué 3 accesorios quieres para tu figura Grinch?</h2>
+                    <div style=\"margin-bottom: 20px;\">
+                        <input type=\"text\" id=\"grinchAcc1\" placeholder=\"Accesorio 1\" style=\"width: 250px; padding: 10px; border: 2px solid #ccc; border-radius: 15px; font-size: 1rem; margin-bottom: 10px;\"><br>
+                        <input type=\"text\" id=\"grinchAcc2\" placeholder=\"Accesorio 2\" style=\"width: 250px; padding: 10px; border: 2px solid #ccc; border-radius: 15px; font-size: 1rem; margin-bottom: 10px;\"><br>
+                        <input type=\"text\" id=\"grinchAcc3\" placeholder=\"Accesorio 3\" style=\"width: 250px; padding: 10px; border: 2px solid #ccc; border-radius: 15px; font-size: 1rem; margin-bottom: 10px;\">
+                    </div>
+                    <button onclick=\"continuarGeneradorGrinch()\" style=\"background: #2ecc40; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin-top: 10px;\">Continuar</button>
+                `;
+                overlay.appendChild(grinchDiv);
+                document.body.appendChild(overlay);
+            } else {
+                document.getElementById('grinch-overlay').style.display = 'flex';
+                document.getElementById('grinch-section').style.display = 'block';
+            }
+        }
+
+        function continuarGeneradorGrinch() {
+            // Obtener accesorios
+            var accesoriosArray = [];
+            for (var i = 1; i <= 3; i++) {
+                var val = document.getElementById('grinchAcc' + i).value.trim();
+                if (val) accesoriosArray.push(val);
+            }
+            window.accesoriosGrinch = accesoriosArray;
+            document.getElementById('grinch-section').style.display = 'none';
+            if(document.getElementById('grinch-overlay')) document.getElementById('grinch-overlay').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('generatorContainer').style.display = 'block';
+            // Generar prompt especial para Grinch
+            const nombre = window.nombreUsuario || 'Usuario';
+            const genero = window.sexoSeleccionado || 'masculino';
+            const accesoriosText = (window.accesoriosGrinch && window.accesoriosGrinch.length > 0) ? window.accesoriosGrinch.join(', ') : 'ningún accesorio';
+            const promptGrinch = `Crea una figura de acción de cuerpo completo con la persona de la foto y que este vestido de GRINCH,  pero que su rostro se mantenga igual, en su caja original con ventana. La figura es como se muestra en la foto, ${genero}. \nLa caja es de color rojo con detalles navideños en dorado y lleva la inscripción ${nombre}. en la parte superior.\nIncluye, como únicos accesorios, ${accesoriosText} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo.\nDiseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña.`;
+            const promptInput = document.getElementById('promptInput');
+            if (promptInput) promptInput.value = promptGrinch;
+        }
+
+        function mostrarRegalosNavidad() {
+            // Oculta la sección de deseos y muestra una de regalos
+            document.getElementById('customization-section').style.display = 'none';
+            if (!document.getElementById('regalos-section')) {
+                // Crear overlay flex para centrar verticalmente
+                var overlay = document.createElement('div');
+                overlay.id = 'regalos-overlay';
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100vw';
+                overlay.style.height = '100vh';
+                overlay.style.display = 'flex';
+                overlay.style.alignItems = 'center';
+                overlay.style.justifyContent = 'center';
+                overlay.style.background = 'rgba(0,0,0,0.01)';
+                overlay.style.zIndex = '9999';
+
+                var regalosDiv = document.createElement('div');
+                regalosDiv.id = 'regalos-section';
+                regalosDiv.className = 'customization-section';
+                regalosDiv.style.display = 'block';
+                regalosDiv.style.position = 'relative';
+                regalosDiv.style.textAlign = 'center';
+                regalosDiv.style.background = 'rgba(255,255,255,0.97)';
+                regalosDiv.style.padding = '40px';
+                regalosDiv.style.borderRadius = '20px';
+                regalosDiv.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                regalosDiv.style.minWidth = '320px';
+                regalosDiv.innerHTML = `
+                    <h2 style=\"color: #666; font-size: 1.4rem; margin-bottom: 20px;\">¿Qué regalos quieres para Navidad?</h2>
+                    <div style=\"margin-bottom: 20px;\">
+                        <input type=\"text\" id=\"regalo1\" placeholder=\"Regalo 1\" style=\"width: 250px; padding: 10px; border: 2px solid #ccc; border-radius: 15px; font-size: 1rem; margin-bottom: 10px;\"><br>
+                        <input type=\"text\" id=\"regalo2\" placeholder=\"Regalo 2\" style=\"width: 250px; padding: 10px; border: 2px solid #ccc; border-radius: 15px; font-size: 1rem; margin-bottom: 10px;\"><br>
+                        <input type=\"text\" id=\"regalo3\" placeholder=\"Regalo 3\" style=\"width: 250px; padding: 10px; border: 2px solid #ccc; border-radius: 15px; font-size: 1rem; margin-bottom: 10px;\">
+                    </div>
+                    <button onclick=\"continuarGeneradorNavidad()\" style=\"background: #397cf6; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin-top: 10px;\">Continuar</button>
+                `;
+                overlay.appendChild(regalosDiv);
+                document.body.appendChild(overlay);
+            } else {
+                document.getElementById('regalos-overlay').style.display = 'flex';
+                document.getElementById('regalos-section').style.display = 'block';
+            }
+        }
+
+        function continuarGeneradorNavidad() {
+            // Obtener regalos
+            var regalosArray = [];
+            for (var i = 1; i <= 3; i++) {
+                var val = document.getElementById('regalo' + i).value.trim();
+                if (val) regalosArray.push(val);
+            }
+            window.regalosNavidad = regalosArray;
+            document.getElementById('regalos-section').style.display = 'none';
+            if(document.getElementById('regalos-overlay')) document.getElementById('regalos-overlay').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('generatorContainer').style.display = 'block';
+            // Permitir scroll para poder descargar la imagen
+            document.body.style.overflow = '';
+            window.scrollTo(0, 0);
+            // Generar prompt especial para navidad
+            const nombre = window.nombreUsuario || 'Usuario';
+            const genero = window.sexoSeleccionado || 'masculino';
+            const regalosText = (window.regalosNavidad && window.regalosNavidad.length > 0) ? window.regalosNavidad.join(', ') : 'ningún regalo';
+            const promptNavidad = `Crea una figura de acción de cuerpo completo con la persona de la foto con vestimenta navideña, en su caja original con ventana. La figura es como se muestra en la foto, ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color rojo con detalles navideños en dorado para la caja. Incluye, como únicos regalos, ${regalosText} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
+            const promptInput = document.getElementById('promptInput');
+            if (promptInput) promptInput.value = promptNavidad;
+        }
+        
+        function selectAccessory(accessory) {
+            if (!window.accesoriosSeleccionados) {
+                window.accesoriosSeleccionados = [];
+            }
+            
+            // Toggle selección del accesorio
+            const element = event.target;
+            const isSelected = element.classList.contains('selected');
+            
+            if (isSelected) {
+                element.classList.remove('selected');
+                const index = window.accesoriosSeleccionados.indexOf(accessory);
+                if (index > -1) {
+                    window.accesoriosSeleccionados.splice(index, 1);
+                }
+            } else {
+                // Verificar si ya se han seleccionado 5 accesorios
+                if (window.accesoriosSeleccionados.length >= 5) {
+                    alert('Puedes seleccionar máximo 5 deseos de año nuevo');
+                    return;
+                }
+                element.classList.add('selected');
+                window.accesoriosSeleccionados.push(accessory);
+            }
+            
+            // Actualizar contador
+            const contador = document.getElementById('contador-accesorios');
+            if (contador) {
+                contador.textContent = window.accesoriosSeleccionados.length;
+            }
+            
+            // Mostrar botón si al menos un accesorio está seleccionado
+            if (window.accesoriosSeleccionados.length > 0) {
+                document.getElementById('continue-photo-button').style.display = 'inline-block';
+            } else {
+                document.getElementById('continue-photo-button').style.display = 'none';
+            }
+        }
+        
+        function continuarGenerador() {
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('generatorContainer').style.display = 'block';
+            // Construir el prompt con los valores seleccionados
+            const nombre = window.nombreUsuario || 'Usuario';
+            const genero = window.sexoSeleccionado || 'masculino';
+            const accesorios = window.accesoriosSeleccionados && window.accesoriosSeleccionados.length > 0 
+                ? window.accesoriosSeleccionados.join(', ') 
+                : 'ningún accesorio';
+            let promptCompleto = '';
+            if (genero === 'neutro') {
+                promptCompleto = `Crea una figura de acción de cuerpo completo con la persona de la foto con vestimenta de año nuevo, en su caja original con ventana. La figura debe enfocarse en la imagen, sin referencia a género. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color negro con detalles en dorado para la caja. Incluye, como únicos accesorios, ${accesorios} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja está sobre una mesa de madera, dentro de una casa cálida con ambientación navideña.`;
+            } else {
+                promptCompleto = `Crea una figura de acción de cuerpo completo con la persona de la foto con vestimenta de año nuevo, en su caja original con ventana. La figura es como se muestra en la foto, ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color negro con detalles en dorado para la caja. Incluye, como únicos accesorios, ${accesorios} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja está sobre una mesa de madera, dentro de una casa cálida con ambientación navideña.`;
+            }
+            const promptInput = document.getElementById('promptInput');
+            promptInput.value = promptCompleto;
+            setTimeout(mostrarQRDescarga, 800); // Mostrar QR después de generar imagen
+        }
+        
+        function continuarFoto() {
+            document.getElementById('customization-section').style.display = 'none';
+            document.getElementById('camera-section').style.display = 'block';
+        }
+        function finalizar() {
+            // Validar que se haya tomado la foto
+            var photoTaken = document.getElementById('captured-photo').src && document.getElementById('captured-photo').src.startsWith('data:image');
+            if (!photoTaken) {
+                alert('Por favor, toma tu foto primero');
+                return;
+            }
+            // Oculta todo y muestra el generador de imagen
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('generatorContainer').style.display = 'block';
+            // Opcional: puedes pasar los datos seleccionados al generador si lo necesitas
+        }
+        function startCamera() {
+            const video = document.getElementById('video');
+            // Detener stream anterior si existe
+            if (window.stream && window.stream.getTracks) {
+                window.stream.getTracks().forEach(track => track.stop());
+            }
+            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                .then(function(stream) {
+                    window.stream = stream;
+                    video.srcObject = stream;
+                    video.style.display = 'block';
+                    document.getElementById('take-photo-btn').style.display = 'inline-block';
+                    document.getElementById('start-camera-btn').style.display = 'none';
+                })
+                .catch(function(err) {
+                    alert('No se pudo acceder a la cámara: ' + err.message);
+                });
+        }
+
+        function takePhoto() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+
+            // Asegura que el canvas tenga el mismo tamaño que el video
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Dibuja el frame actual del video en el canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convierte el canvas a imagen base64 y lo guarda
+            const dataUrl = canvas.toDataURL('image/png');
+            window.capturedPhotoData = dataUrl;
+
+            // Detiene el stream de la cámara
+            if (window.stream && window.stream.getTracks) {
+                window.stream.getTracks().forEach(track => track.stop());
+                window.stream = null;
+            }
+
+            // Ir directamente al generador
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('generatorContainer').style.display = 'block';
+
+            // Evitar scroll al tomar la foto
+            document.body.style.overflow = '';
+            window.scrollTo(0, 0);
+        }
+
+        function retakePhoto() {
+            document.getElementById('video').style.display = 'block';
+            document.getElementById('start-camera-btn').style.display = 'inline-block';
+            document.getElementById('take-photo-btn').style.display = 'none';
+        }
+
+        function reiniciarProceso() {
+            // Ocultar todas las secciones
+            document.getElementById('generatorContainer').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'none';
+
+            // Limpiar selecciones
+            document.getElementById('avatar-masculino').classList.remove('selected');
+            document.getElementById('avatar-femenino').classList.remove('selected');
+            document.getElementById('img-masculino').src = 'img/Hombre.jpg';
+            document.getElementById('img-femenino').src = 'img/Mujer.jpg';
+            document.getElementById('next-button').style.display = 'none';
+
+            // Limpiar campos
+            document.getElementById('user-name').value = '';
+
+            // Limpiar selecciones de cabello y accesorios
+            document.querySelectorAll('.accessory-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Reiniciar contador
+            const contador = document.getElementById('contador-accesorios');
+            if (contador) {
+                contador.textContent = '0';
+            }
+
+            // Ocultar botones de continuar
+            document.getElementById('continue-photo-button').style.display = 'none';
+
+            // Resetear secciones
+            document.getElementById('name-section').style.display = 'none';
+            document.getElementById('customization-section').style.display = 'none';
+
+            // Limpiar variables globales
+            window.sexoSeleccionado = null;
+            window.nombreUsuario = null;
+            window.cabelloSeleccionado = null;
+            window.tonoSeleccionado = null;
+            window.accesoriosSeleccionados = [];
+
+            // Mostrar pantalla inicial (términos)
+            document.getElementById('terms-section').style.display = 'block';
+            document.getElementById('inicioContainer').style.display = 'flex';
+            document.body.style.overflow = '';
+        }
+        
+        // Función para generar nombre de archivo personalizado
+        function generarNombreArchivo() {
+            const nombre = window.nombreUsuario || 'Usuario';
+            const fecha = new Date();
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            const año = fecha.getFullYear();
+            const hora = String(fecha.getHours()).padStart(2, '0');
+            const minuto = String(fecha.getMinutes()).padStart(2, '0');
+            const segundo = String(fecha.getSeconds()).padStart(2, '0');
+            
+            // Limpiar nombre del usuario (remover caracteres especiales)
+            const nombreLimpio = nombre.replace(/[^a-zA-Z0-9áéíóúñÁÉÍÓÚÑ]/g, '_');
+            
+            return `Figura_${nombreLimpio}_AñoNuevo_2026_${dia}-${mes}-${año}_${hora}-${minuto}-${segundo}.png`;
+        }
+        
+        // Función para descargar solo la imagen generada (editada)
+        function descargarImagen() {
+            const imgElement = document.getElementById('resultImage');
+            if (!imgElement || !imgElement.src) {
+                alert('No hay imagen para descargar');
+                return;
+            }
+            // Solo descarga la imagen generada (editada)
+            const link = document.createElement('a');
+            link.href = imgElement.src;
+            link.download = generarNombreArchivo();
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            console.log('Imagen descargada como:', generarNombreArchivo());
+        }
+        
+        // Método alternativo de descarga (si el principal falla)
+        function descargarImagenAlternativo() {
+            const imgElement = document.getElementById('resultImage');
+            const link = document.createElement('a');
+            
+            // Usar la imagen directamente con nombre personalizado
+            link.href = imgElement.src;
+            link.download = generarNombreArchivo();
+            link.style.display = 'none';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            console.log('Imagen descargada (método alternativo) como:', generarNombreArchivo());
+        }
+        
+        function mostrarQRDescarga() {
+            var imgElement = document.getElementById('resultImage');
+            var qrDiv = document.getElementById('qr-container');
+            qrDiv.innerHTML = '';
+            if (imgElement && imgElement.src) {
+                var qr = new QRious({
+                    element: document.createElement('canvas'),
+                    value: imgElement.src,
+                    size: 180
+                });
+                qrDiv.appendChild(qr.element);
+                var qrLabel = document.createElement('div');
+                qrLabel.style.fontSize = '1rem';
+                qrLabel.style.marginTop = '8px';
+                qrLabel.textContent = 'Escanea para descargar en tu celular';
+                qrDiv.appendChild(qrLabel);
+            }
+        }
+    </script>
+    <script src="qrious.min.js"></script>
+    <script>
+        function changeAvatarImage(genero, isHover) {
+            const imgElement = document.getElementById('img-' + genero);
+            const isSelected = document.getElementById('avatar-' + genero).classList.contains('selected');
+            if (genero === 'masculino') {
+                imgElement.src = (isHover || isSelected) ? 'img/Hombre-1.jpg' : 'img/Hombre.jpg';
+            } else if (genero === 'femenino') {
+                imgElement.src = (isHover || isSelected) ? 'img/Mujer-1.jpg' : 'img/Mujer.jpg';
+            } else if (genero === 'neutro') {
+                imgElement.src = (isHover || isSelected) ? 'img/Neutro-1.jpg' : 'img/Neutro.jpg';
+            }
+        }
+
+        function selectGender(genero) {
+            // Marcar avatar seleccionado
+            document.getElementById('avatar-masculino').classList.remove('selected');
+            document.getElementById('avatar-femenino').classList.remove('selected');
+            document.getElementById('avatar-neutro').classList.remove('selected');
+            // Restablecer imágenes a estado normal
+            document.getElementById('img-masculino').src = 'img/Hombre.jpg';
+            document.getElementById('img-femenino').src = 'img/Mujer.jpg';
+            document.getElementById('img-neutro').src = 'img/Neutro.jpg';
+            // Marcar nuevo avatar seleccionado y cambiar su imagen
+            document.getElementById('avatar-' + genero).classList.add('selected');
+            changeAvatarImage(genero, false);
             window.sexoSeleccionado = genero;
             document.getElementById('next-button').style.display = 'block';
         }
@@ -1338,7 +1507,9 @@
             const nombre = window.nombreUsuario || 'Usuario';
             const genero = window.sexoSeleccionado || 'masculino';
             const accesoriosText = (window.accesoriosGrinch && window.accesoriosGrinch.length > 0) ? window.accesoriosGrinch.join(', ') : 'ningún accesorio';
-            const promptGrinch = `Crea una figura de acción de cuerpo completo con la persona de la foto con un disfraz de Grinch pero sin máscara para que se pueda ver el rostro de la persona de la foto, en su caja original con ventana. La figura es como se muestra en la foto, es ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color rojo con detalles navideños en dorado para la caja. Incluye , como únicos accesorios,${accesoriosText} cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
+            const promptGrinch = `Crea una figura de acción de cuerpo completo con la persona de la foto con estilo Grinch pero manteniendo el mismo rostro de la persona de la foto, en su caja original con ventana. La figura es como se muestra en la foto, es ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color rojo con detalles navideños en dorado para la caja. Incluye , como únicos accesorios, ${accesoriosText} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
+
+            
             const promptInput = document.getElementById('promptInput');
             if (promptInput) promptInput.value = promptGrinch;
         }
@@ -1412,188 +1583,12 @@
             const promptInput = document.getElementById('promptInput');
             if (promptInput) promptInput.value = promptNavidad;
         }
-
-        // Función para generar el QR en el contenedor de resultados
-        function generarQR(url) {
-            var qrContainer = document.getElementById('qr-container');
-            qrContainer.innerHTML = '';
-            var qr = new QRious({
-                element: document.createElement('canvas'),
-                value: url,
-                size: 180,
-                background: 'white',
-                foreground: '#434444'
-            });
-            qrContainer.appendChild(qr.element);
-            var texto = document.createElement('p');
-            texto.textContent = 'Escanea para ver y descargar tu imagen en tu dispositivo';
-            qrContainer.appendChild(texto);
-            qrContainer.style.display = 'block';
-        }
-
-        function mostrarResultado(imagenUrl) {
-            document.getElementById('resultImage').src = imagenUrl;
-            document.getElementById('resultSection').style.display = 'block';
-            // El QR debe contener la URL directa de la imagen para descarga
-            generarQR(window.location.origin + imagenUrl);
-            var downloadBtn = document.getElementById('downloadBtn');
-            downloadBtn.onclick = function() {
-                // Descarga directa de la imagen
-                var link = document.createElement('a');
-                link.href = imagenUrl;
-                link.download = imagenUrl.split('/').pop();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            };
-        }
-
-        // Inicialización de la cámara
-    document.addEventListener('DOMContentLoaded', function() {
-        var cameraBtn = document.getElementById('cameraBtn');
-        var cameraModal = document.getElementById('cameraModal');
-        var cameraVideo = document.getElementById('cameraVideo');
-        var captureBtn = document.getElementById('captureBtn');
-        var closeCameraBtn = document.getElementById('closeCameraBtn');
-        var previewContainer = document.getElementById('previewContainer');
-        var imagePreview = document.getElementById('imagePreview');
-        var removeBtn = document.getElementById('removeBtn');
-        var stream = null;
-
-        if (cameraBtn) {
-            cameraBtn.onclick = function() {
-                cameraModal.style.display = 'flex';
-                // Solicitar acceso a la cámara
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function(s) {
-                        stream = s;
-                        cameraVideo.srcObject = stream;
-                        cameraVideo.play();
-                    })
-                    .catch(function(err) {
-                        alert('No se pudo acceder a la cámara: ' + err.message);
-                        cameraModal.style.display = 'none';
-                    });
-            };
-        }
-
-        if (closeCameraBtn) {
-            closeCameraBtn.onclick = function() {
-                cameraModal.style.display = 'none';
-                if (stream) {
-                    stream.getTracks().forEach(function(track) { track.stop(); });
-                    cameraVideo.srcObject = null;
-                }
-            };
-        }
-
-        if (captureBtn) {
-            captureBtn.onclick = function() {
-                var canvas = document.createElement('canvas');
-                canvas.width = cameraVideo.videoWidth;
-                canvas.height = cameraVideo.videoHeight;
-                var ctx = canvas.getContext('2d');
-                ctx.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
-                var dataUrl = canvas.toDataURL('image/png');
-                imagePreview.src = dataUrl;
-                previewContainer.style.display = 'block';
-                cameraModal.style.display = 'none';
-                if (stream) {
-                    stream.getTracks().forEach(function(track) { track.stop(); });
-                    cameraVideo.srcObject = null;
-                }
-            };
-        }
-
-        if (removeBtn) {
-            removeBtn.onclick = function() {
-                previewContainer.style.display = 'none';
-                imagePreview.src = '';
-            };
-        }
-    });
+    </script>
+    <script>
     // Bloquear el clic derecho en toda la página
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
-</script>
-<script>
-    // Manejo de selección de accesorios/deseos
-    var accesoriosSeleccionados = [];
-
-    function selectAccessory(nombre) {
-        var max = 5;
-        var min = 1;
-        var btn = document.getElementById('continue-photo-button');
-        var contador = document.getElementById('contador-accesorios');
-        
-        // Mapeo de nombres a textos mostrados
-        var nombreTexto = {
-            'viajar': 'Viajar',
-            'ejercicio': 'Hacer ejercicio',
-            'mascota': 'Adoptar una mascota',
-            'idioma': 'Aprender un idioma',
-            'amor': 'Encontrar el amor',
-            'suerte': 'Tener buena suerte',
-            'batman': 'Ser Batman',
-            'carro': 'Cambiar de carro',
-            'conciertos': 'Ir a conciertos',
-            'instrumento': 'Tocar un instrumento',
-            'organizado': 'Ser más organizado'
-        };
-        
-        // Buscar el elemento por el texto exacto
-        var opciones = document.querySelectorAll('.accessory-option');
-        var el = null;
-        var textoABuscar = nombreTexto[nombre] || nombre;
-        
-        opciones.forEach(function(opt) {
-            if (opt.textContent.trim() === textoABuscar) {
-                el = opt;
-            }
-        });
-
-        // Alternar selección
-        var idx = accesoriosSeleccionados.indexOf(nombre);
-        if (idx === -1) {
-            if (accesoriosSeleccionados.length < max) {
-                accesoriosSeleccionados.push(nombre);
-                if (el) el.classList.add('selected');
-            }
-        } else {
-            accesoriosSeleccionados.splice(idx, 1);
-            if (el) el.classList.remove('selected');
-        }
-
-        contador.textContent = accesoriosSeleccionados.length;
-
-        // Mostrar botón continuar solo si hay entre min y max seleccionados
-        if (accesoriosSeleccionados.length >= min && accesoriosSeleccionados.length <= max) {
-            btn.style.display = 'inline-block';
-        } else {
-            btn.style.display = 'none';
-        }
-    }
-
-    // Cuando el usuario hace clic en continuar, guarda los accesorios seleccionados en window
-    function continuarGenerador() {
-        window.accesoriosSeleccionados = accesoriosSeleccionados.slice();
-
-        // Oculta la sección de deseos y muestra el generador
-        document.getElementById('customization-section').style.display = 'none';
-        document.getElementById('mainContainer').style.display = 'none';
-        document.getElementById('generatorContainer').style.display = 'block';
-
-        // Genera el prompt para año nuevo
-        const nombre = window.nombreUsuario || 'Usuario';
-        const genero = window.sexoSeleccionado || 'masculino';
-        const accesoriosText = (window.accesoriosSeleccionados && window.accesoriosSeleccionados.length > 0)
-            ? window.accesoriosSeleccionados.join(', ')
-            : 'ningún deseo';
-        const promptNuevo = `Crea una figura de acción de cuerpo completo con la persona de la foto con vestimenta de año nuevo, en su caja original con ventana. La figura es como se muestra en la foto, es ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color negro con detalles en dorado para la caja. Incluye, como únicos accesorios, ${accesoriosText} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
-        const promptInput = document.getElementById('promptInput');
-        if (promptInput) promptInput.value = promptNuevo;
-    }
 </script>
 </body>
 </html>
