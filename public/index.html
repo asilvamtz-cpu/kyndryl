@@ -289,9 +289,132 @@
             color: white !important;
         }
         .accessory-option.selected {
-            background: #434444ff !important;
+            background: linear-gradient(135deg, #ff462d 0%, #e55319 100%) !important;
             color: white !important;
-            border-color: #434444ff !important;
+            border-color: #ff462d !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 10px 25px rgba(255, 70, 45, 0.3) !important;
+        }
+        
+        /* Estilos para el contenedor del QR */
+        #qr-container {
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        #qr-container h3 {
+            margin: 0 0 12px 0;
+            color: #434444;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        #qr-container p {
+            margin: 8px 0 0 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        /* Estilos para deseos de año nuevo */
+        .wishes-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .wishes-title {
+            color: #434444;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .wishes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .wish-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wish-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #ff462d;
+        }
+        
+        .wish-item.selected {
+            background: linear-gradient(135deg, #ff462d 0%, #e55319 100%);
+            color: white;
+            border-color: #ff462d;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 70, 45, 0.3);
+        }
+        
+        .wish-emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .wish-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .wishes-counter {
+            background: #434444;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            margin: 20px 0;
+            display: inline-block;
+        }
+        
+        @media (max-width: 768px) {
+            .wishes-section {
+                margin: 20px 10px;
+                padding: 20px;
+            }
+            
+            .wishes-title {
+                font-size: 1.5rem;
+            }
+            
+            .wish-item {
+                padding: 15px;
+            }
+            
+            #qr-container {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            #qr-container h3 {
+                font-size: 1rem;
+            }
         }
 
         /* Media Queries para Responsividad */
@@ -940,22 +1063,25 @@
 </div>
 
     <script src="app.js"></script>
-        <script>
-            // Modal de términos y condiciones (solo se abre bajo demanda)
-            const termsModal = document.getElementById('termsModal');
-            const openTermsModal = document.getElementById('openTermsModal');
-            const closeTermsModal = document.getElementById('closeTermsModal');
-            if (openTermsModal && termsModal && closeTermsModal) {
-                openTermsModal.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    termsModal.style.display = 'flex';
-                });
-                closeTermsModal.addEventListener('click', function() {
-                    termsModal.style.display = 'none';
-                });
-            }
-        </script>
     <script>
+<<<<<<< HEAD
+        // Modal de términos y condiciones (solo se abre bajo demanda)
+        const termsModal = document.getElementById('termsModal');
+        const openTermsModal = document.getElementById('openTermsModal');
+        const closeTermsModal = document.getElementById('closeTermsModal');
+        if (openTermsModal && termsModal && closeTermsModal) {
+            openTermsModal.addEventListener('click', function(e) {
+                e.preventDefault();
+                termsModal.style.display = 'flex';
+            });
+            closeTermsModal.addEventListener('click', function() {
+                termsModal.style.display = 'none';
+            });
+        }
+    </script>
+    <script>
+=======
+>>>>>>> 590eeea1dd9212becbdcea5eb8f20d7db24e0dc7
         function changeAvatarImage(genero, isHover) {
             const imgElement = document.getElementById('img-' + genero);
             const isSelected = document.getElementById('avatar-' + genero).classList.contains('selected');
@@ -1143,12 +1269,125 @@
             const promptInput = document.getElementById('promptInput');
             if (promptInput) promptInput.value = promptNavidad;
         }
+
+        // Función para generar el QR en el contenedor de resultados
+        function generarQR(url) {
+            var qrContainer = document.getElementById('qr-container');
+            qrContainer.innerHTML = '';
+            var qr = new QRious({
+                element: document.createElement('canvas'),
+                value: url,
+                size: 180,
+                background: 'white',
+                foreground: '#434444'
+            });
+            qrContainer.appendChild(qr.element);
+            var texto = document.createElement('p');
+            texto.textContent = 'Escanea para ver y descargar tu imagen en tu dispositivo';
+            qrContainer.appendChild(texto);
+            qrContainer.style.display = 'block';
+        }
+
+        function mostrarResultado(imagenUrl) {
+            document.getElementById('resultImage').src = imagenUrl;
+            document.getElementById('resultSection').style.display = 'block';
+            // El QR debe contener la URL directa de la imagen para descarga
+            generarQR(window.location.origin + imagenUrl);
+            var downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.onclick = function() {
+                // Descarga directa de la imagen
+                var link = document.createElement('a');
+                link.href = imagenUrl;
+                link.download = imagenUrl.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+        }
     </script>
     <script>
     // Bloquear el clic derecho en toda la página
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
+</script>
+<script>
+    // Manejo de selección de accesorios/deseos
+    var accesoriosSeleccionados = [];
+
+    function selectAccessory(nombre) {
+        var max = 5;
+        var min = 1;
+        var btn = document.getElementById('continue-photo-button');
+        var contador = document.getElementById('contador-accesorios');
+        
+        // Mapeo de nombres a textos mostrados
+        var nombreTexto = {
+            'viajar': 'Viajar',
+            'ejercicio': 'Hacer ejercicio',
+            'mascota': 'Adoptar una mascota',
+            'idioma': 'Aprender un idioma',
+            'amor': 'Encontrar el amor',
+            'suerte': 'Tener buena suerte',
+            'batman': 'Ser Batman',
+            'carro': 'Cambiar de carro',
+            'conciertos': 'Ir a conciertos',
+            'instrumento': 'Tocar un instrumento',
+            'organizado': 'Ser más organizado'
+        };
+        
+        // Buscar el elemento por el texto exacto
+        var opciones = document.querySelectorAll('.accessory-option');
+        var el = null;
+        var textoABuscar = nombreTexto[nombre] || nombre;
+        
+        opciones.forEach(function(opt) {
+            if (opt.textContent.trim() === textoABuscar) {
+                el = opt;
+            }
+        });
+
+        // Alternar selección
+        var idx = accesoriosSeleccionados.indexOf(nombre);
+        if (idx === -1) {
+            if (accesoriosSeleccionados.length < max) {
+                accesoriosSeleccionados.push(nombre);
+                if (el) el.classList.add('selected');
+            }
+        } else {
+            accesoriosSeleccionados.splice(idx, 1);
+            if (el) el.classList.remove('selected');
+        }
+
+        contador.textContent = accesoriosSeleccionados.length;
+
+        // Mostrar botón continuar solo si hay entre min y max seleccionados
+        if (accesoriosSeleccionados.length >= min && accesoriosSeleccionados.length <= max) {
+            btn.style.display = 'inline-block';
+        } else {
+            btn.style.display = 'none';
+        }
+    }
+
+    // Cuando el usuario hace clic en continuar, guarda los accesorios seleccionados en window
+    function continuarGenerador() {
+        window.accesoriosSeleccionados = accesoriosSeleccionados.slice();
+
+        // Oculta la sección de deseos y muestra el generador
+        document.getElementById('customization-section').style.display = 'none';
+        document.getElementById('mainContainer').style.display = 'none';
+        document.getElementById('generatorContainer').style.display = 'block';
+
+        // Genera el prompt para año nuevo
+        const nombre = window.nombreUsuario || 'Usuario';
+        const genero = window.sexoSeleccionado || 'masculino';
+        const accesoriosText = (window.accesoriosSeleccionados && window.accesoriosSeleccionados.length > 0)
+            ? window.accesoriosSeleccionados.join(', ')
+            : 'ningún deseo';
+        const promptNuevo = `Crea una figura de acción de cuerpo completo con la persona de la foto con vestimenta de año nuevo, en su caja original con ventana. La figura es como se muestra en la foto, es ${genero}. En la parte superior, pon ${nombre} con 2026 debajo. Utiliza el color negro con detalles en dorado para la caja. Incluye, como únicos accesorios, ${accesoriosText} ordenados cuidadosamente a la derecha, proporcionales al modelo y colocados en ranuras empotradas con el modelo. Diseña en estilo realista, pareciendo una persona real con iluminación suave y un diseño claro, como un producto de tienda de juguetes. La caja esta sobre una mesa de madera, dentro de una casa cálida con ambientación navideña`;
+        const promptInput = document.getElementById('promptInput');
+        if (promptInput) promptInput.value = promptNuevo;
+    }
 </script>
 </body>
 </html>

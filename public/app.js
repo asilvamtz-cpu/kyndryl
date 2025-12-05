@@ -187,7 +187,8 @@ async function generateImage() {
         resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         showToast('¡Imagen generada exitosamente! 🎉', 'success');
         
-        generateQRCode(data.image);
+        // Generar QR con la URL de descarga
+        generateQRCode(data.downloadUrl);
     } catch (error) {
         console.error('Error:', error);
         showToast(error.message || 'Error al generar la imagen', 'error');
@@ -279,6 +280,13 @@ function reiniciarProceso() {
     // Resetear formulario de imagen
     resetForm();
     
+<<<<<<< HEAD
+    // Limpiar QR container
+    const qrContainer = document.getElementById('qr-container');
+    if (qrContainer) qrContainer.innerHTML = '';
+    
+=======
+>>>>>>> 590eeea1dd9212becbdcea5eb8f20d7db24e0dc7
     // Mostrar pantalla inicial
     document.getElementById('terms-section').style.display = 'block';
     document.getElementById('inicioContainer').style.display = 'flex';
@@ -344,20 +352,64 @@ function continuarFoto() {
 }
 
 // Función para generar QR de descarga
-function generateQRCode(imageUrl) {
+function generateQRCode(downloadUrl) {
     const qrContainer = document.getElementById('qr-container');
-    if (!qrContainer) return;
+    if (!qrContainer || !downloadUrl) return;
     
     qrContainer.innerHTML = '';
+    qrContainer.style.display = 'block';
     
     const title = document.createElement('h3');
-    title.textContent = 'Escanea para descargar';
-    title.style.color = '#666';
+    title.textContent = '📱 Escanea para descargar';
+    title.style.color = '#434444';
     title.style.fontSize = '1.1rem';
-    title.style.marginBottom = '10px';
+    title.style.marginBottom = '12px';
+    title.style.fontWeight = '600';
     qrContainer.appendChild(title);
     
     try {
+<<<<<<< HEAD
+        const qrWrapper = document.createElement('div');
+        qrWrapper.style.display = 'inline-block';
+        qrWrapper.style.padding = '15px';
+        qrWrapper.style.background = 'white';
+        qrWrapper.style.borderRadius = '15px';
+        qrWrapper.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+        qrWrapper.style.border = '2px solid #e9ecef';
+        
+        const canvas = document.createElement('canvas');
+        const qr = new QRious({
+            element: canvas,
+            value: downloadUrl,
+            size: 160,
+            margin: 1,
+            foreground: '#434444',
+            background: 'white'
+        });
+        
+        qrWrapper.appendChild(canvas);
+        qrContainer.appendChild(qrWrapper);
+        
+        const instruction = document.createElement('p');
+        instruction.textContent = 'Apunta tu cámara al código QR para descargar';
+        instruction.style.color = '#666';
+        instruction.style.fontSize = '0.85rem';
+        instruction.style.marginTop = '8px';
+        instruction.style.marginBottom = '0';
+        qrContainer.appendChild(instruction);
+        
+        console.log('QR generado exitosamente para:', downloadUrl);
+        
+    } catch (error) {
+        console.error('Error generando QR:', error);
+        const message = document.createElement('p');
+        message.textContent = '⬇️ Usa el botón Descargar para guardar tu imagen';
+        message.style.color = '#666';
+        message.style.fontSize = '0.9rem';
+        message.style.padding = '10px';
+        message.style.background = '#f8f9fa';
+        message.style.borderRadius = '8px';
+=======
         const canvas = document.createElement('canvas');
         const qr = new QRious({
             element: canvas,
@@ -374,6 +426,7 @@ function generateQRCode(imageUrl) {
         message.textContent = 'Usa el botón Descargar para guardar tu imagen';
         message.style.color = '#666';
         message.style.fontSize = '0.9rem';
+>>>>>>> 590eeea1dd9212becbdcea5eb8f20d7db24e0dc7
         qrContainer.appendChild(message);
     }
 }
@@ -426,6 +479,10 @@ function volverAlInicio() {
     const btnTermsNext = document.getElementById('btn-terms-next');
     if (termsCheckbox) termsCheckbox.checked = false;
     if (btnTermsNext) btnTermsNext.disabled = true;
+    
+    // Limpiar QR container
+    const qrContainer = document.getElementById('qr-container');
+    if (qrContainer) qrContainer.innerHTML = '';
     
     // Mostrar pantalla inicial
     document.getElementById('terms-section').style.display = 'block';
