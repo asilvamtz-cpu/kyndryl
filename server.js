@@ -53,6 +53,33 @@ app.use('/downloads', express.static('downloads'));
 // Inicializar Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
+// Función para limpiar archivos antiguos (mantener solo 30)
+async function cleanOldFiles() {
+  try {
+    const downloadDir = path.join(__dirname, 'downloads');
+    if (!fs.existsSync(downloadDir)) return;
+    
+    const files = fs.readdirSync(downloadDir)
+      .filter(file => file.startsWith('figura_') && file.endsWith('.png'))
+      .map(file => ({
+        name: file,
+        path: path.join(downloadDir, file),
+        time: fs.statSync(path.join(downloadDir, file)).mtime
+      }))
+      .sort((a, b) => b.time - a.time);
+    
+    if (files.length > 30) {
+      const filesToDelete = files.slice(30);
+      filesToDelete.forEach(file => {
+        fs.unlinkSync(file.path);
+        console.log('Archivo eliminado:', file.name);
+      });
+    }
+  } catch (error) {
+    console.error('Error limpiando archivos:', error);
+  }
+}
+
 // Función para procesar imagen: centrar, recortar y agregar marca de agua
 async function processImage(base64Image) {
   try {
@@ -159,6 +186,9 @@ app.post('/api/generate', upload.single('image'), async (req, res) => {
       }
       
       fs.writeFileSync(downloadPath, Buffer.from(processedImageBase64, 'base64'));
+      
+      // Limpiar archivos antiguos
+      await cleanOldFiles();
       
       // Generar URL de descarga
       const downloadUrl = `${req.protocol}://${req.get('host')}/downloads/${filename}`;
