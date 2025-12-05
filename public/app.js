@@ -280,10 +280,13 @@ function reiniciarProceso() {
     // Resetear formulario de imagen
     resetForm();
     
+<<<<<<< HEAD
     // Limpiar QR container
     const qrContainer = document.getElementById('qr-container');
     if (qrContainer) qrContainer.innerHTML = '';
     
+=======
+>>>>>>> 590eeea1dd9212becbdcea5eb8f20d7db24e0dc7
     // Mostrar pantalla inicial
     document.getElementById('terms-section').style.display = 'block';
     document.getElementById('inicioContainer').style.display = 'flex';
@@ -365,6 +368,7 @@ function generateQRCode(downloadUrl) {
     qrContainer.appendChild(title);
     
     try {
+<<<<<<< HEAD
         const qrWrapper = document.createElement('div');
         qrWrapper.style.display = 'inline-block';
         qrWrapper.style.padding = '15px';
@@ -405,6 +409,24 @@ function generateQRCode(downloadUrl) {
         message.style.padding = '10px';
         message.style.background = '#f8f9fa';
         message.style.borderRadius = '8px';
+=======
+        const canvas = document.createElement('canvas');
+        const qr = new QRious({
+            element: canvas,
+            value: imageUrl,
+            size: 150,
+            margin: 2
+        });
+        canvas.style.border = '2px solid #ddd';
+        canvas.style.borderRadius = '10px';
+        qrContainer.appendChild(canvas);
+    } catch (error) {
+        console.log('Error generando QR:', error);
+        const message = document.createElement('p');
+        message.textContent = 'Usa el botón Descargar para guardar tu imagen';
+        message.style.color = '#666';
+        message.style.fontSize = '0.9rem';
+>>>>>>> 590eeea1dd9212becbdcea5eb8f20d7db24e0dc7
         qrContainer.appendChild(message);
     }
 }
