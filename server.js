@@ -147,9 +147,23 @@ app.post('/api/generate', upload.single('image'), async (req, res) => {
       // Procesar imagen: centrar, recortar y agregar marca de agua
       const processedImageBase64 = await processImage(generatedImageBase64);
       
+      // Guardar imagen procesada para descarga via QR
+      const imageId = Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+      const generatedDir = path.join(__dirname, 'generated');
+      if (!fs.existsSync(generatedDir)) {
+        fs.mkdirSync(generatedDir);
+      }
+      
+      const imagePath = path.join(generatedDir, `${imageId}.png`);
+      fs.writeFileSync(imagePath, Buffer.from(processedImageBase64, 'base64'));
+      
+      // URL para el QR
+      const imageUrl = `${req.protocol}://${req.get('host')}/download/${imageId}`;
+      
       res.json({
         success: true,
         image: `data:image/png;base64,${processedImageBase64}`,
+        downloadUrl: imageUrl,
         message: 'Imagen generada y procesada exitosamente'
       });
     } else {
@@ -174,6 +188,25 @@ app.post('/api/generate', upload.single('image'), async (req, res) => {
   }
 });
 
+// Endpoint para descargar imágenes generadas
+app.get('/download/:imageId', (req, res) => {
+  try {
+    const { imageId } = req.params;
+    const imagePath = path.join(__dirname, 'generated', `${imageId}.png`);
+    
+    if (!fs.existsSync(imagePath)) {
+      return res.status(404).json({ error: 'Imagen no encontrada' });
+    }
+    
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Content-Disposition', `attachment; filename="imagen-${imageId}.png"`);
+    res.sendFile(imagePath);
+  } catch (error) {
+    console.error('Error al descargar imagen:', error);
+    res.status(500).json({ error: 'Error al descargar la imagen' });
+  }
+});
+
 // Endpoint de salud
 app.get('/api/health', (req, res) => {
   res.json({ 
@@ -183,11 +216,37 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Función para limpiar archivos antiguos (más de 1 hora)
+function cleanupOldFiles() {
+  const generatedDir = path.join(__dirname, 'generated');
+  if (!fs.existsSync(generatedDir)) return;
+  
+  const files = fs.readdirSync(generatedDir);
+  const oneHourAgo = Date.now() - (60 * 60 * 1000); // 1 hora en milisegundos
+  
+  files.forEach(file => {
+    const filePath = path.join(generatedDir, file);
+    const stats = fs.statSync(filePath);
+    
+    if (stats.mtime.getTime() < oneHourAgo) {
+      fs.unlinkSync(filePath);
+      console.log(`🗑️ Archivo eliminado: ${file}`);
+    }
+  });
+}
+
+// Limpiar archivos cada 30 minutos
+setInterval(cleanupOldFiles, 30 * 60 * 1000);
+
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
   console.log(`🍌 Nano Banana API está lista para generar imágenes`);
+  console.log(`📱 QR de descarga habilitado`);
   
   if (!process.env.GOOGLE_API_KEY) {
     console.warn('⚠️  ADVERTENCIA: No se encontró GOOGLE_API_KEY en el archivo .env');
   }
+  
+  // Limpiar archivos antiguos al iniciar
+  cleanupOldFiles();
 });
