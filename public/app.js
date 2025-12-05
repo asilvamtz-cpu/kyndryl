@@ -132,8 +132,10 @@ async function generateImage() {
         resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         showToast('¡Imagen generada exitosamente! 🎉', 'success');
         
-        // Generar QR para descarga
-        generateQRCode(data.image);
+        // Mostrar QR con URL de descarga
+        if (data.qrCode) {
+            showQRCode(data.qrCode);
+        }
     } catch (error) {
         console.error('Error:', error);
         showToast(error.message || 'Error al generar la imagen', 'error');
@@ -169,6 +171,10 @@ function resetForm() {
     previewContainer.style.display = 'none';
     resultSection.style.display = 'none';
     generateBtn.disabled = true;
+    
+    // Limpiar QR
+    const qrContainer = document.getElementById('qr-container');
+    if (qrContainer) qrContainer.innerHTML = '';
     
     // Scroll al inicio
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -256,8 +262,8 @@ function continuarFoto() {
     document.getElementById('generatorContainer').style.display = 'block';
 }
 
-// Función para generar QR de descarga
-function generateQRCode(imageUrl) {
+// Función para mostrar QR de descarga
+function showQRCode(qrCodeDataUrl) {
     const qrContainer = document.getElementById('qr-container');
     if (!qrContainer) return;
     
@@ -271,18 +277,14 @@ function generateQRCode(imageUrl) {
     title.style.marginBottom = '10px';
     qrContainer.appendChild(title);
     
-    // Generar QR con QRious
-    const canvas = document.createElement('canvas');
-    const qr = new QRious({
-        element: canvas,
-        value: imageUrl,
-        size: 150,
-        margin: 2
-    });
-    
-    canvas.style.border = '2px solid #ddd';
-    canvas.style.borderRadius = '10px';
-    qrContainer.appendChild(canvas);
+    // Mostrar QR generado por el servidor
+    const qrImg = document.createElement('img');
+    qrImg.src = qrCodeDataUrl;
+    qrImg.style.width = '150px';
+    qrImg.style.height = '150px';
+    qrImg.style.border = '2px solid #ddd';
+    qrImg.style.borderRadius = '10px';
+    qrContainer.appendChild(qrImg);
 }
 
 // Ejecutar al cargar la página

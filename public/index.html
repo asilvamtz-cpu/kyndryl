@@ -940,21 +940,21 @@
 </div>
 
     <script src="app.js"></script>
-        <script>
-            // Modal de términos y condiciones (solo se abre bajo demanda)
-            const termsModal = document.getElementById('termsModal');
-            const openTermsModal = document.getElementById('openTermsModal');
-            const closeTermsModal = document.getElementById('closeTermsModal');
-            if (openTermsModal && termsModal && closeTermsModal) {
-                openTermsModal.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    termsModal.style.display = 'flex';
-                });
-                closeTermsModal.addEventListener('click', function() {
-                    termsModal.style.display = 'none';
-                });
-            }
-        </script>
+    <script>
+        // Modal de términos y condiciones (solo se abre bajo demanda)
+        const termsModal = document.getElementById('termsModal');
+        const openTermsModal = document.getElementById('openTermsModal');
+        const closeTermsModal = document.getElementById('closeTermsModal');
+        if (openTermsModal && termsModal && closeTermsModal) {
+            openTermsModal.addEventListener('click', function(e) {
+                e.preventDefault();
+                termsModal.style.display = 'flex';
+            });
+            closeTermsModal.addEventListener('click', function() {
+                termsModal.style.display = 'none';
+            });
+        }
+    </script>
     <script>
         function changeAvatarImage(genero, isHover) {
             const imgElement = document.getElementById('img-' + genero);
@@ -1145,14 +1145,106 @@
             const promptInput = document.getElementById('promptInput');
             if (promptInput) promptInput.value = promptNavidad;
         }
+
+        // Función para mostrar la imagen generada y crear el QR
+        function mostrarImagenGenerada(base64Image) {
+            var resultImage = document.getElementById('resultImage');
+            if (resultImage) {
+                resultImage.src = base64Image;
+            }
+            // Mostrar sección de resultado
+            document.getElementById('resultSection').style.display = 'block';
+
+            // Generar QR para descargar la imagen
+            var qrContainer = document.getElementById('qr-container');
+            if (qrContainer) {
+                qrContainer.innerHTML = ''; // Limpiar QR anterior
+                var qr = new QRious({
+                    element: document.createElement('canvas'),
+                    value: base64Image,
+                    size: 180
+                });
+                qrContainer.appendChild(qr.element);
+
+                // Texto de ayuda
+                var qrText = document.createElement('div');
+                qrText.style.marginTop = '8px';
+                qrText.style.fontSize = '1rem';
+                qrText.style.color = '#434444';
+                qrText.innerText = 'Escanea el QR para descargar tu imagen';
+                qrContainer.appendChild(qrText);
+            }
+        }
+
+        // Envía la imagen al backend y obtiene la URL pública
+    function guardarImagenEnServidor(base64Image, callback) {
+        fetch('/api/guardar-imagen', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ imagen: base64Image })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // data.url debe ser la URL pública, por ejemplo: /descargas/imagen123.png
+            callback(data.url);
+        })
+        .catch(() => {
+            alert('No se pudo guardar la imagen en el servidor');
+            callback(null);
+        });
+    }
+
+    // Modifica mostrarImagenGenerada para usar la URL pública
+    function mostrarImagenGenerada(base64Image) {
+        var resultImage = document.getElementById('resultImage');
+        if (resultImage) {
+            resultImage.src = base64Image;
+        }
+        document.getElementById('resultSection').style.display = 'block';
+
+        var qrContainer = document.getElementById('qr-container');
+        if (qrContainer) {
+            qrContainer.innerHTML = 'Generando QR...';
+
+            guardarImagenEnServidor(base64Image, function(urlDescarga) {
+                qrContainer.innerHTML = '';
+                if (urlDescarga) {
+                    var qr = new QRious({
+                        element: document.createElement('canvas'),
+                        value: window.location.origin + urlDescarga,
+                        size: 180
+                    });
+                    qrContainer.appendChild(qr.element);
+
+                    var qrText = document.createElement('div');
+                    qrText.style.marginTop = '8px';
+                    qrText.style.fontSize = '1rem';
+                    qrText.style.color = '#434444';
+                    qrText.innerText = 'Escanea el QR para descargar tu imagen';
+                    qrContainer.appendChild(qrText);
+                } else {
+                    qrContainer.innerText = 'No se pudo generar el QR.';
+                }
+            });
+        }
+    }
+
+        // Ejemplo: Llama a mostrarImagenGenerada(base64Image) después de generar la imagen
+        // Reemplaza la lógica de mostrar la imagen generada en tu flujo principal:
+        // mostrarImagenGenerada(fotoBase64);
+
+        // Si ya tienes una función que muestra la imagen generada, agrega ahí la llamada a mostrarImagenGenerada
+
+        // Modifica el flujo donde se genera la imagen para llamar a mostrarImagenGenerada
+        // Por ejemplo, después de capturar la foto y generar la imagen:
+        // mostrarImagenGenerada(fotoBase64);
+
+        // Bloquear el clic derecho en toda la página
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
     </script>
     <script>
-    // Bloquear el clic derecho en toda la página
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-</script>
-<script>
     // Agrega la función para seleccionar deseos/accesorios de año nuevo
     function selectAccessory(accessory) {
         if (!window.accesoriosSeleccionados) {
@@ -1246,6 +1338,9 @@
                 imagePreview.src = fotoBase64;
                 document.getElementById('previewContainer').style.display = 'block';
             }
+
+            // MOSTRAR LA IMAGEN Y EL QR EN EL RESULTADO
+            mostrarImagenGenerada(fotoBase64);
         };
 
         // Botón para cerrar la cámara sin tomar foto

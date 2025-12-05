@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
+import QRCode from 'qrcode';
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ const upload = multer({
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+app.use('/downloads', express.static('downloads'));
 
 // Inicializar Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
@@ -147,9 +149,28 @@ app.post('/api/generate', upload.single('image'), async (req, res) => {
       // Procesar imagen: centrar, recortar y agregar marca de agua
       const processedImageBase64 = await processImage(generatedImageBase64);
       
+      // Guardar imagen en carpeta downloads
+      const filename = `figura_${Date.now()}.png`;
+      const downloadPath = path.join(__dirname, 'downloads', filename);
+      const downloadDir = path.join(__dirname, 'downloads');
+      
+      if (!fs.existsSync(downloadDir)) {
+        fs.mkdirSync(downloadDir);
+      }
+      
+      fs.writeFileSync(downloadPath, Buffer.from(processedImageBase64, 'base64'));
+      
+      // Generar URL de descarga
+      const downloadUrl = `${req.protocol}://${req.get('host')}/downloads/${filename}`;
+      
+      // Generar QR code
+      const qrCode = await QRCode.toDataURL(downloadUrl);
+      
       res.json({
         success: true,
         image: `data:image/png;base64,${processedImageBase64}`,
+        downloadUrl: downloadUrl,
+        qrCode: qrCode,
         message: 'Imagen generada y procesada exitosamente'
       });
     } else {
@@ -181,6 +202,18 @@ app.get('/api/health', (req, res) => {
     message: 'Nano Banana API está funcionando',
     hasApiKey: !!process.env.GOOGLE_API_KEY
   });
+});
+
+// Endpoint para servir archivos de descarga
+app.get('/download/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'downloads', filename);
+  
+  if (fs.existsSync(filePath)) {
+    res.download(filePath);
+  } else {
+    res.status(404).json({ error: 'Archivo no encontrado' });
+  }
 });
 
 app.listen(PORT, () => {
