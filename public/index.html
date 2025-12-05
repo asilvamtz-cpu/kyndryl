@@ -1177,14 +1177,17 @@
         }
 
         // Ejemplo: Llama a mostrarImagenGenerada(base64Image) después de generar la imagen
-        // Reemplaza la lógica de mostrar la imagen generada en tu flujo principal:
-        // mostrarImagenGenerada(fotoBase64);
-
-        // Si ya tienes una función que muestra la imagen generada, agrega ahí la llamada a mostrarImagenGenerada
-
-        // Modifica el flujo donde se genera la imagen para llamar a mostrarImagenGenerada
-        // Por ejemplo, después de capturar la foto y generar la imagen:
-        // mostrarImagenGenerada(fotoBase64);
+        // Función para mostrar imagen generada con QR
+        function mostrarImagenGenerada(imagenBase64) {
+            const resultImage = document.getElementById('resultImage');
+            const resultSection = document.getElementById('resultSection');
+            
+            if (resultImage && resultSection) {
+                resultImage.src = imagenBase64;
+                resultSection.style.display = 'block';
+                resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
 
         // Bloquear el clic derecho en toda la página
         document.addEventListener('contextmenu', function(e) {
@@ -1286,8 +1289,8 @@
                 document.getElementById('previewContainer').style.display = 'block';
             }
 
-            // MOSTRAR LA IMAGEN Y EL QR EN EL RESULTADO
-            mostrarImagenGenerada(fotoBase64);
+            // Habilitar el botón de generar
+            checkFormValid();
         };
 
         // Botón para cerrar la cámara sin tomar foto

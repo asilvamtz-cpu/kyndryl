@@ -122,6 +122,7 @@ async function generateImage() {
         });
 
         const data = await response.json();
+        console.log('Respuesta del servidor:', data);
 
         if (!response.ok) {
             throw new Error(data.error || 'Error al generar la imagen');
@@ -133,8 +134,12 @@ async function generateImage() {
         showToast('¡Imagen generada exitosamente! 🎉', 'success');
         
         // Mostrar QR con URL de descarga
+        console.log('QR recibido:', !!data.qrCode);
         if (data.qrCode) {
+            console.log('Mostrando QR...');
             showQRCode(data.qrCode);
+        } else {
+            console.log('No se recibió QR del servidor');
         }
     } catch (error) {
         console.error('Error:', error);

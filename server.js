@@ -162,17 +162,22 @@ app.post('/api/generate', upload.single('image'), async (req, res) => {
       
       // Generar URL de descarga
       const downloadUrl = `${req.protocol}://${req.get('host')}/downloads/${filename}`;
+      console.log('URL de descarga generada:', downloadUrl);
       
       // Generar QR code
       const qrCode = await QRCode.toDataURL(downloadUrl);
+      console.log('QR generado exitosamente, longitud:', qrCode.length);
       
-      res.json({
+      const response = {
         success: true,
         image: `data:image/png;base64,${processedImageBase64}`,
         downloadUrl: downloadUrl,
         qrCode: qrCode,
         message: 'Imagen generada y procesada exitosamente'
-      });
+      };
+      
+      console.log('Respuesta enviada con QR:', !!response.qrCode);
+      res.json(response);
     } else {
       res.status(500).json({
         error: 'No se pudo generar la imagen',
