@@ -1176,59 +1176,6 @@
             }
         }
 
-        // Envía la imagen al backend y obtiene la URL pública
-    function guardarImagenEnServidor(base64Image, callback) {
-        fetch('/api/guardar-imagen', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ imagen: base64Image })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // data.url debe ser la URL pública, por ejemplo: /descargas/imagen123.png
-            callback(data.url);
-        })
-        .catch(() => {
-            alert('No se pudo guardar la imagen en el servidor');
-            callback(null);
-        });
-    }
-
-    // Modifica mostrarImagenGenerada para usar la URL pública
-    function mostrarImagenGenerada(base64Image) {
-        var resultImage = document.getElementById('resultImage');
-        if (resultImage) {
-            resultImage.src = base64Image;
-        }
-        document.getElementById('resultSection').style.display = 'block';
-
-        var qrContainer = document.getElementById('qr-container');
-        if (qrContainer) {
-            qrContainer.innerHTML = 'Generando QR...';
-
-            guardarImagenEnServidor(base64Image, function(urlDescarga) {
-                qrContainer.innerHTML = '';
-                if (urlDescarga) {
-                    var qr = new QRious({
-                        element: document.createElement('canvas'),
-                        value: window.location.origin + urlDescarga,
-                        size: 180
-                    });
-                    qrContainer.appendChild(qr.element);
-
-                    var qrText = document.createElement('div');
-                    qrText.style.marginTop = '8px';
-                    qrText.style.fontSize = '1rem';
-                    qrText.style.color = '#434444';
-                    qrText.innerText = 'Escanea el QR para descargar tu imagen';
-                    qrContainer.appendChild(qrText);
-                } else {
-                    qrContainer.innerText = 'No se pudo generar el QR.';
-                }
-            });
-        }
-    }
-
         // Ejemplo: Llama a mostrarImagenGenerada(base64Image) después de generar la imagen
         // Reemplaza la lógica de mostrar la imagen generada en tu flujo principal:
         // mostrarImagenGenerada(fotoBase64);
